@@ -107,7 +107,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - Initial work - [Anand Ambastha](https://github.com/Anand-Ambastha)
+- Anand Kumar - [Anand Ambastha](https://github.com/Anand-Ambastha)
 
 ## 🙏 Acknowledgments
 

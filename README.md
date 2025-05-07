@@ -1,9 +1,13 @@
 # 🌍 Global Purchasing Power Parity (PPP) Calculator
 
 A modern web application that helps users understand and compare their salary's purchasing power across different countries using Purchasing Power Parity (PPP) calculations.
-For Information Related to Purchasing Power Parity refer `theory.md`
+
 ![PPP Calculator Screenshot](screenshot.png)
 ![PPP Calculator Screenshot](screenshot2.png)
+
+
+For Information Related to Purchasing Power Parity refer `theory.md`
+
 
 ## ✨ Features
 

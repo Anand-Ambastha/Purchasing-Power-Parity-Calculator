@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP Calculator | Compare Global Purchasing Power</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="top-nav">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>PPP Calculator</span>
+                </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="hero-section">
+                <h1>🌍 Global Purchasing Power Calculator</h1>
+                <p class="subtitle">Discover the true value of your salary across the globe!</p>
+                <p class="description">How does your salary stack up internationally? Find out how far your earnings go in different countries with our Purchasing Power Parity (PPP) tool. Compare your salary's purchasing power and equivalent salary across countries to see the real value of your income.</p>
+            </div>
+
+            <div class="calculator-container">
+                <div class="user-info-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info-content">
+                                <h3>📍 Your Location</h3>
+                                <p id="userCountry">Detecting...</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-network-wired"></i>
+                            <div class="info-content">
+                                <h3>IP Address</h3>
+                                <p id="userIP">Detecting...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label for="salary">
+                                <i class="fas fa-dollar-sign"></i>
+                                💰 Annual Salary (USD)
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="salary" placeholder="Enter your salary">
+                                <span class="currency-symbol">$</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="targetCountry">
+                                <i class="fas fa-flag"></i>
+                                🌍 Target Country
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="targetCountry">
+                                    <option value="">Select a country</option>
+                                </select>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+
+                        <button id="calculateBtn" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            Calculate PPP
+                        </button>
+                    </div>
+
+                    <div class="result-section" id="resultSection" style="display: none;">
+                        <div class="result-header">
+                            <h2>🔎 PPP Results</h2>
+                            <p class="result-subtitle">See how your salary compares to the global market!</p>
+                        </div>
+                        
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <h3>Equivalent Salary</h3>
+                                <p id="equivalentSalary">-</p>
+                                <p class="result-description">(This is how much you'd need to earn in the target country to have the same purchasing power!)</p>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <h3>PPP Rate</h3>
+                                <p id="pppRate">-</p>
+                                <p class="result-description">(For every $1 you earn in your country, it's like earning this amount in the target country!)</p>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3>Purchasing Power</h3>
+                                <p id="purchasingPower">-</p>
+                                <p class="result-description">(Your salary's purchasing power in the target country compared to your home country!)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Why Should You Care About PPP?</h3>
+                    <p>Understanding PPP allows you to make better financial decisions when considering relocation, working remotely from abroad, or planning your career in global markets. Get insights into how you can optimize your salary's value on a global scale!</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>📊 Data sourced from World Bank & IMF PPP statistics</p>
+                <p class="footer-note">The latest data from trusted global sources ensures accuracy.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">🔐 About</a>
+                    <a href="#" class="footer-link">🛡️ Privacy</a>
+                    <a href="#" class="footer-link">📜 Terms</a>
+                </div>
+                <p class="privacy-note">Your privacy is our priority. We respect your data and follow strict privacy standards.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="errorContainer" class="error-container"></div>
+    <script src="script.js"></script>
+</body>
+</html> 

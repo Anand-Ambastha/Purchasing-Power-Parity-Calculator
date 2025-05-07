@@ -107,7 +107,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+- Your Name - Initial work - [Anand Ambastha](https://github.com/Anand-Ambastha)
 
 ## 🙏 Acknowledgments
 
@@ -120,7 +120,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help, please:
 - Open an issue
-- Contact us at your-email@example.com
+- Contact us at your-anandambastha72@gmail.com
 
 ## 🔄 Updates
 

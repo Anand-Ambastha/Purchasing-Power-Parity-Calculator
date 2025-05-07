@@ -66,8 +66,7 @@ async function fetchPPPData() {
     try {
         setLoading(true);
         // Using IMF's PPPEX endpoint for implied PPP conversion rates
-        const response = await fetch('https://www.imf.org/external/datamapper/api/v1/indicators/PPPEX');
-        
+        const response = await fetch('https://www.imf.org/external/datamapper/PPPEX@WEO/OEMDC?year=2025');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

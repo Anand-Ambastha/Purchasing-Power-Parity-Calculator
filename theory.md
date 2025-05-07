@@ -1,4 +1,4 @@
-# Purchasing Power Parity (PPP) Calculator
+# Purchasing Power Parity (PPP) - Economics
 
 ## Overview
 

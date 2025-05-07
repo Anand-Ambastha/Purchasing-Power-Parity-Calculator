@@ -61,30 +61,55 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// Fetch PPP data from World Bank API
+// Fetch PPP data from IMF API
 async function fetchPPPData() {
     try {
         setLoading(true);
-        const response = await fetch('https://api.worldbank.org/v2/country/all/indicator/PA.NUS.PPP?format=json&per_page=300&date=' + new Date().getFullYear());
-        if (!response.ok) throw new Error('Failed to fetch PPP data');
+        // Using IMF's PPPEX endpoint for implied PPP conversion rates
+        const response = await fetch('https://www.imf.org/external/datamapper/api/v1/indicators/PPPEX');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         
         const data = await response.json();
-        if (!data || !data[1]) throw new Error('Invalid PPP data format');
-
-        // Process the data
+        
+        // Process IMF data
         pppData = {};
-        data[1].forEach(item => {
-            if (item.value && item.country.value) {
-                pppData[item.country.value] = item.value;
+        let validDataCount = 0;
+        
+        // IMF data is organized by country codes
+        Object.entries(data.values).forEach(([countryCode, values]) => {
+            // Get the most recent year's data
+            const years = Object.keys(values).sort().reverse();
+            if (years.length > 0) {
+                const latestValue = values[years[0]];
+                if (latestValue && !isNaN(latestValue) && latestValue > 0) {
+                    // Convert country code to country name
+                    const countryName = data.metadata.country[countryCode];
+                    if (countryName) {
+                        // Convert to relative PPP (using US as base)
+                        // Lower PPPEX means higher purchasing power
+                        pppData[countryName] = 1 / latestValue;
+                        validDataCount++;
+                    }
+                }
             }
         });
 
-        // Populate country select with available countries
+        // Check if we got enough valid data
+        if (validDataCount < 5) {
+            throw new Error('Insufficient PPP data received from IMF');
+        }
+
+        console.log(`Successfully loaded PPP data for ${validDataCount} countries from IMF`);
         populateCountries();
+        
     } catch (error) {
         console.error('Error fetching PPP data:', error);
-        showError('Failed to fetch PPP data. Using fallback data.');
-        // Fallback to static data if API fails
+        showError('Failed to fetch real-time PPP data. Using fallback data.');
+        
+        // Fallback to static data with more countries
         pppData = {
             'India': 0.3,
             'Switzerland': 0.8,
@@ -95,7 +120,17 @@ async function fetchPPPData() {
             'Japan': 0.65,
             'Canada': 0.8,
             'Australia': 0.75,
-            'Singapore': 0.85
+            'Singapore': 0.85,
+            'China': 0.6,
+            'Brazil': 0.45,
+            'Mexico': 0.5,
+            'South Korea': 0.7,
+            'Russia': 0.4,
+            'South Africa': 0.35,
+            'Turkey': 0.4,
+            'Indonesia': 0.35,
+            'Netherlands': 0.8,
+            'Italy': 0.7
         };
         populateCountries();
     } finally {

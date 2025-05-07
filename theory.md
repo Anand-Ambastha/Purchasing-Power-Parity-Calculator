@@ -84,7 +84,7 @@ If the current exchange rate is different from this value, it suggests that one 
 - `script.js`: Contains the logic to calculate PPP based on user input.
 - `style.css`: Basic styling for the web interface.
 - `README.md`: for the directions for using Website!
-- `theory.md` : thta you are reading right now
+- `theory.md` : That you are reading right now
 
 ---
 

@@ -14,18 +14,8 @@ const themeToggle = document.querySelector('.theme-toggle');
 // State
 let isLoading = false;
 let currentTheme = localStorage.getItem('theme') || 'light';
-let pppData = {
-    'India': 0.3,
-    'Switzerland': 0.8,
-    'United States': 1.0,
-    'United Kingdom': 0.7,
-    'Germany': 0.75,
-    'France': 0.72,
-    'Japan': 0.65,
-    'Canada': 0.8,
-    'Australia': 0.75,
-    'Singapore': 0.85
-};
+let pppData = {};
+let userCountry = '';
 
 // Theme Management
 function setTheme(theme) {
@@ -71,6 +61,48 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+// Fetch PPP data from World Bank API
+async function fetchPPPData() {
+    try {
+        setLoading(true);
+        const response = await fetch('https://api.worldbank.org/v2/country/all/indicator/PA.NUS.PPP?format=json&per_page=300&date=' + new Date().getFullYear());
+        if (!response.ok) throw new Error('Failed to fetch PPP data');
+        
+        const data = await response.json();
+        if (!data || !data[1]) throw new Error('Invalid PPP data format');
+
+        // Process the data
+        pppData = {};
+        data[1].forEach(item => {
+            if (item.value && item.country.value) {
+                pppData[item.country.value] = item.value;
+            }
+        });
+
+        // Populate country select with available countries
+        populateCountries();
+    } catch (error) {
+        console.error('Error fetching PPP data:', error);
+        showError('Failed to fetch PPP data. Using fallback data.');
+        // Fallback to static data if API fails
+        pppData = {
+            'India': 0.3,
+            'Switzerland': 0.8,
+            'United States': 1.0,
+            'United Kingdom': 0.7,
+            'Germany': 0.75,
+            'France': 0.72,
+            'Japan': 0.65,
+            'Canada': 0.8,
+            'Australia': 0.75,
+            'Singapore': 0.85
+        };
+        populateCountries();
+    } finally {
+        setLoading(false);
+    }
+}
+
 // Populate country select
 function populateCountries() {
     const countries = Object.keys(pppData).sort();
@@ -98,10 +130,11 @@ async function getUserInfo() {
         const countryResponse = await fetch(`https://ipapi.co/${data.ip}/json/`);
         if (!countryResponse.ok) throw new Error('Failed to fetch country data');
         const countryData = await countryResponse.json();
-        userCountryElement.textContent = countryData.country_name;
+        userCountry = countryData.country_name;
+        userCountryElement.textContent = userCountry;
 
         // Set default target country to Switzerland if user is from India
-        if (countryData.country_name === 'India') {
+        if (userCountry === 'India') {
             targetCountrySelect.value = 'Switzerland';
         }
     } catch (error) {
@@ -140,10 +173,13 @@ async function calculatePPP() {
         
         validateSalary(salary);
 
-        const userCountry = userCountryElement.textContent;
         const userCountryPPP = pppData[userCountry] || 1.0;
         const targetCountryPPP = pppData[targetCountry];
         
+        if (!targetCountryPPP) {
+            throw new Error('PPP data not available for the selected country');
+        }
+
         const equivalentSalary = (salary * targetCountryPPP) / userCountryPPP;
         const pppRate = targetCountryPPP / userCountryPPP;
         const purchasingPower = (pppRate * 100).toFixed(1);
@@ -171,14 +207,6 @@ async function calculatePPP() {
 // Event Listeners
 calculateBtn.addEventListener('click', calculatePPP);
 
-// Add input validation on salary input
-salaryInput.addEventListener('input', (e) => {
-    const value = e.target.value;
-    if (value && !isNaN(value)) {
-        e.target.value = Math.max(0, parseFloat(value));
-    }
-});
-
 // Theme toggle
 themeToggle.addEventListener('click', () => {
     currentTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -193,5 +221,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTheme(currentTheme);
     
     await getUserInfo();
-    populateCountries();
+    await fetchPPPData();
 }); 

@@ -3,6 +3,7 @@
 A modern web application that helps users understand and compare their salary's purchasing power across different countries using Purchasing Power Parity (PPP) calculations.
 
 ![PPP Calculator Screenshot](screenshot.png)
+![PPP Calculator Screenshot](screenshot2.png)
 
 ## ✨ Features
 

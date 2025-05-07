@@ -40,7 +40,7 @@ A modern web application that helps users understand and compare their salary's 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/ppp-calculator.git
+git clone https://github.com/Anand-Ambastha/ppp-calculator.git
 ```
 
 2. Navigate to the project directory:

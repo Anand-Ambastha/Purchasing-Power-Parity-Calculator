@@ -18,7 +18,7 @@ A modern web application that helps users understand and compare their salary's 
 
 ## 🚀 Live Demo
 
-[Try the PPP Calculator](https://your-demo-link.com)
+[Try the PPP Calculator](https://ppp-calculator1.netlify.app/)
 
 ## 🛠️ Technologies Used
 

@@ -97,6 +97,13 @@ Feel free to contribute to this project! You can:
 
 ---
 
+## Author
+
+Anand Ambastha - anandambastha72@gmail.com
+
+
+---
+
 ### References:
 
 1. **The Economist.** (2011). *The Big Mac Index: A guide to purchasing power parity*. Retrieved from [The Economist](https://www.economist.com/)
